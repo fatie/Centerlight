@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Properties>
+        <Property name="log-path">logs</Property>
+    </Properties>
+    <Appenders>
+        <Console name="consoleLog" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%t] %class %L %M - %msg%n"/>
+        </Console>
+        <Console name="showFile" target="SYSTEM_OUT">
+            <PatternLayout pattern="%msg%n"/>
+        </Console>
+        <File name="logFile" fileName="target/${log-path}/appEChamp.log" append="false">
+            <PatternLayout>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%t] %class %L - %msg%n</pattern>
+            </PatternLayout>
+        </File>
+        <File name="transferlogFile" fileName="target/${log-path}/transfer3.log" append="false">
+            <PatternLayout>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} - %msg%n</pattern>
+            </PatternLayout>
+        </File>
+        <File name="transferEChamplogFile" fileName="target/${log-path}/transferEChamp.log" append="false">
+            <PatternLayout>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} - %msg%n</pattern>
+            </PatternLayout>
+        </File>
+<!--         <JDBC name="databaseAppender" tableName="log"> -->
+<!--         	<ConnectionFactory class="org.centerlight.dischargingReport.AccessDBLogConnection" method="getDatabaseConnection" /> -->
+<!--         	<Column name="Event" pattern="%L" /> -->
+<!--         </JDBC> -->
+    </Appenders>
+    <Loggers>
+<!--         <logger name="org.centerlight.attachment.changeFilelocation.fileIO" level="debug" additivity="true"> -->
+<!--         	<appender-ref ref="showFile" level="trace"/> -->
+<!--         </logger> -->
+        <logger name="org.centerlight.attachment.changeFilelocation" level="trace">
+        	<appender-ref ref="logFile" level="debug"/>
+<!--         	<appender-ref ref="databaseAppender" level="trace" /> -->
+        </logger>
+         <logger name="org.centerlight.attachment.changeFilelocation.fileIO.FileOutput" level="trace">
+        	<appender-ref ref="transferlogFile" level="trace"/>
+        </logger>
+        <logger name="org.centerlight.attachment.changeFilelocation.fileIO.FileOutputForEChamp" level="trace">
+        	<appender-ref ref="transferEChamplogFile" level="trace"/>
+        </logger>
+        <root level="debug">
+            <AppenderRef ref="consoleLog" level = "debug" />
+        </root>
+    </Loggers>
+</Configuration>
